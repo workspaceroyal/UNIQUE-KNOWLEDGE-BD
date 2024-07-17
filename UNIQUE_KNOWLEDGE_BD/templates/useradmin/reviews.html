@@ -1,0 +1,46 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}    
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">রিভিউ</h2>
+            <p>এখানে সকল রিভিউ ম্যানেজ করুন</p>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>নং</th>
+                            <th>বই</th>
+                            <th>নাম</th>
+                            <th>রিভিউ</th>
+                            <th>রেটিং</th>
+                            <th>তারিখ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for r in reviews %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td><b>{{r.product.title}}</b></td>
+                                <td>{{r.user.username|title}}</td>
+                                <td>{{r.review}}</td>
+                                <td>{{r.rating}} Stars</td>
+                                <td>{{r.date|date:"m M, Y"}}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}    

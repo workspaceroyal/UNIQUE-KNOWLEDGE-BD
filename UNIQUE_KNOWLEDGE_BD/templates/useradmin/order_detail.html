@@ -1,0 +1,164 @@
+{% extends 'useradmin/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}  
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">অর্ডার ডিটেইল</h2>
+            <p>অর্ডার আইডি: {{order.oid}}</p>
+        </div>
+    </div>
+    <div class="card">
+        <header class="card-header">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                    <span> <i class="material-icons md-calendar_today"></i> <b>{{order.date}}</b> </span> <br />
+                    <small class="text-muted">অর্ডার আইডি: #{{order.oid}}</small>
+                </div>
+                <form method="POST" action="{% url 'useradmin:change_order_status' order.oid %}" class="col-lg-6 col-md-6 ms-auto text-md-end">
+                    {% csrf_token %}
+                    <select name="status" class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
+                        <option value="pending">অর্ডার স্ট্যাটাস পরিবর্তন</option>
+                        <option value="processing">পেন্ডিং</option>
+                        <option value="shipped">পাঠানো হয়েছে</option>
+                        <option value="delivered">ডেলিভারি হয়েছে</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit" >সংরক্ষণ করুন</button>
+                </form>
+            </div>
+        </header>
+        <!-- card-header end// -->
+        <div class="card-body">
+            <div class="row mb-50 mt-20 order-info-wrap">
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-person"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">কাস্টমার</h6>
+                            <p class="mb-1">
+                                {{order.full_name}} <br />
+                                {{order.email}} <br />
+                                {{order.phone}}
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <!-- col// -->
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-local_shipping"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">অর্ডার ইনফর্মেশন</h6>
+                            <p class="mb-1">
+                                পরিবহণ মাধ্যম: {{order.shipping_method}} <br />
+                                অর্ডার আইডি: #{{order.oid}} <br>
+                                অর্ডার স্ট্যটাস: {{order.product_status|title}} <br>
+                                পেমেন্ট স্ট্যাটাস: {% if order.paid_status == True %} Paid {% else %} Not Paid {% endif %}
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <!-- col// -->
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-place"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-1">ডেলিভারি ঠিকানা</h6>
+                            <p class="mb-1">
+                                ঠিকানা: {{order.address}} <br />
+                                গ্রাম/এরিয়া: {{order.city}} <br />
+                                উপজেলা/থানা: {{order.state}} <br />
+                                জেলা/শহর: {{order.country}}
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <!-- col// -->
+            </div>
+            <!-- row // -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="40%">বই</th>
+                                    <th width="20%">মূল্য</th>
+                                    <th width="20%">পরিমাণ</th>
+                                    <th width="20%" class="text-end">মোট</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for o in order_items %}
+                                    <tr>
+                                        <td>
+                                            <a class="itemside" href="#">
+                                                <div class="left">
+                                                    <img src="{{o.image}}" style="border-radius: 4px;" width="40" height="40" class="img-xs" alt="Item" />
+                                                </div>
+                                                <div class="info">{{o.item}}</div>
+                                            </a>
+                                        </td>
+                                        <td>৳{{ o.price }}</td>
+                                        <td>{{ o.qty }}</td>
+                                        <td class="text-end">৳{{o.total}}</td>
+                                    </tr>
+                                {% endfor %}
+                                    
+                                
+                                <tr>
+                                    <td colspan="4">
+                                        <article class="float-end">
+                                            <dl class="dlist">
+                                                <dt>ট্যাক্স:</dt>
+                                                <dd>৳0</dd>
+                                            </dl>
+                                            <dl class="dlist">
+                                                <dt>পরিবহণ খরচ:</dt>
+                                                <dd>৳0</dd>
+                                            </dl>
+                                            <dl class="dlist">
+                                                <dt>ডিসকাউন্ট:</dt>
+                                                <dd>৳{{ order.saved }}</dd>
+                                            </dl>
+                                            <dl class="dlist">
+                                                <dt>গ্রান্ড টোটাল:</dt>
+                                                <dd><b class="h5">৳{{order.price}}</b></dd>
+                                            </dl>
+                                            <dl class="dlist">
+                                                <dt class="text-muted">স্ট্যাটাস:</dt>
+                                                <dd>
+                                                    
+                                                    {% if order.paid_status == True %}
+                                                        <span class="badge rounded-pill alert-success text-success">পেইড
+                                                        </span>
+                                                    {% else %}
+                                                        <span class="badge rounded-pill alert-danger text-danger">নট
+                                                            পেইড
+                                                        </span>
+                                                    {% endif %}
+                                                        
+                                                </dd>
+                                            </dl>
+                                        </article>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

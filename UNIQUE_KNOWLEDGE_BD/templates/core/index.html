@@ -1,0 +1,423 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Modal -->
+<div class="modal fade custom-modal" id="onloadModal" tabindex="-1" aria-labelledby="onloadModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div>
+            <img src="{% static 'assets/imgs/banner/popup-1.png'%}" alt=""/>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<main class="main">
+    <div class="container mb-30">
+        <div class="row flex-row-reverse">
+
+            <!--hero slider-->
+            <section class="home-slider position-relative mb-30 ">
+                <div class="container ">
+                    <div class="home-slide-cover mt-30 ">
+                        <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1 ">
+                            <div class="single-hero-slider single-animation-wrap"
+                                 style="background-image: url({% static 'assets/imgs/slider/slider-1.png' %})">
+                            </div>
+                            <div class="single-hero-slider single-animation-wrap"
+                                 style="background-image: url({% static 'assets/imgs/slider/slider-2.png' %})">
+                            </div>
+                            <div class="single-hero-slider single-animation-wrap"
+                                 style="background-image: url({% static 'assets/imgs/slider/slider-1.png' %})">
+                            </div>
+                            <div class="single-hero-slider single-animation-wrap"
+                                 style="background-image: url({% static 'assets/imgs/slider/slider-2.png' %})">
+                            </div>
+                        </div>
+                        <div class="slider-arrow hero-slider-1-arrow"></div>
+                    </div>
+                </div>
+            </section>
+            <!--End hero slider-->
+
+            <!--category slider-->
+            <section class="popular-categories section-padding">
+                <div class="container wow animate__animated animate__fadeIn">
+                    <div class="section-title">
+
+                        <div class="title">
+                            <h3>বিষয়</h3>
+                            <a class="show-all" href="{% url 'core:category-list' %}">
+                                সকল বিষয়
+                                <i class="fi-rs-angle-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
+                             id="carausel-10-columns-arrows"></div>
+                    </div>
+                    <div class="carausel-10-columns-cover position-relative">
+                        <div class="carausel-10-columns" id="carausel-10-columns">
+                            {% for c in categories %}
+                            <div class="m-2 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                                <figure class="overflow-hidden img-hover-scale">
+                                    <a href="{% url 'core:category-product-list' c.cid %}">
+                                        <img style=" object-fit: cover;"
+                                             class="border-radius-15" src="{{c.image.url}}" alt=""/>
+                                    </a>
+                                </figure>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End category slider-->
+
+            <!--banners-->
+            <section class="banners mb-25">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
+                                <img src="{% static 'assets/imgs/banner/banner-1.png' %}" alt=""/>
+                                <div class="banner-text">
+                                    <h4>
+                                        এক প্লাটফর্মে <br/>হাজারো রকমের বই<br/>
+                                        ঘরে বসে বই কিনুন
+                                    </h4>
+                                    <a href="" class="btn btn-xs">সব বই দেখুন <i
+                                            class="fi-rs-arrow-small-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+                                <img src="{% static 'assets/imgs/banner/banner-2.png' %}" alt=""/>
+                                <div class="banner-text">
+                                    <h4>
+                                        হাজার হাজার বইয়ের<br/>
+                                        বিশাল সমাহার
+                                    </h4>
+                                    <a href="" class="btn btn-xs">সব বই দেখুন <i
+                                            class="fi-rs-arrow-small-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 d-md-none d-lg-flex">
+                            <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp"
+                                 data-wow-delay=".4s">
+                                <img src="{% static 'assets/imgs/banner/banner-3.png' %}" alt=""/>
+                                <div class="banner-text">
+                                    <h4>সেরা ছাড়ে বই কিনুন <br/>অর্ডার করুন</h4>
+                                    <a href="" class="btn btn-xs">সব বই দেখুন <i
+                                            class="fi-rs-arrow-small-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End banners-->
+
+            <!--Products Tabs-->
+            <section class="product-tabs section-padding position-relative">
+                <div class="container">
+                    <!--nav-tabs-->
+                    <div class="section-title style-2 wow animate__animated animate__fadeIn">
+                        <h3>বই সমূহ</h3>
+                        <ul class="nav nav-tabs links" id="myTab-1" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="{% url 'core:product-list' %}" class="nav-link active">
+                                    সকল বই দেখুন
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--End nav-tabs-->
+
+                    <!--tab-content-->
+                    <div class="col-lg-12 col-md-12 wow animate__animated animate__fadeIn" data-wow-delay=".4s">
+                        <div class="tab-content" id="myTabContent">
+                            <!--tab one-->
+                            <div class="tab-pane fade show active" id="tab-one" role="tabpanel"
+                                 aria-labelledby="tab-one">
+
+                                <div class="carausel-4-columns-cover arrow-center position-relative">
+                                    <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow"
+                                         id="carausel-4-columns-arrows-1"></div>
+                                    <div class="d-flex carausel-4-columns carausel-arrow-center">
+
+                                        <!--product card-->
+                                        {% for p in products %}
+                                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+                                                 data-wow-delay=".1s">
+                                                <div class="product-img-action-wrap">
+                                                    <div class="product-img product-img-zoom">
+                                                        <a href="{% url 'core:product-detail' p.pid %}">
+                                                            <img class="default-img" src="{{ p.image.url }}" alt=""/>
+                                                            <img class="hover-img" src="{{ p.image.url }}" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-action-1">
+                                                        <a aria-label="Add To Wishlist" class="action-btn"
+                                                           href="shop-wishlist.html"><i
+                                                                class="fi-rs-heart"></i></a>
+                                                        <a aria-label="Compare" class="action-btn"
+                                                           href="shop-compare.html"><i
+                                                                class="fi-rs-shuffle"></i></a>
+                                                        <a aria-label="Quick view" class="action-btn"
+                                                           href="{% url 'core:product-detail' p.pid %}"><i
+                                                                class="fi-rs-eye"></i></a>
+                                                    </div>
+                                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                                        <span class="hot">{{ p.get_percentage | floatformat:0 }}%
+                                                            ছাড়</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content-wrap">
+                                                    <div class="product-category">
+                                                        <a href="{% url 'core:category-product-list' p.category.cid %}">{{ p.category.title }} </a>
+                                                    </div>
+                                                    <h2><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }} </a></h2>
+                                                    <div class="product-rate-cover">
+                                                        <div class="product-rate d-inline-block">
+                                                            <div class="product-rating" style="width: 90%"></div>
+                                                        </div>
+                                                        <span class="ml-5 font-small text-muted"> (4.0)</span>
+                                                    </div>
+                                                    <div>
+                                                <span class="font-small text-muted">প্রকানী: <a
+                                                        href="{% url 'core:vendor-detail' p.vendor.vid %}">{{ p.vendor.title }} </a></span>
+                                                    </div>
+                                                    <div class="product-card-bottom">
+                                                        <div class="product-price">
+                                                            <span>৳</span>
+                                                            <span class="current-product-price-{{ p.id }}"> {{p.price}}</span>
+                                                            <span class="old-price">৳ {{ p.old_price }} </span>
+                                                        </div>
+                                                        <div class="add-cart">
+                                                            <input type="hidden" value="1" id="product-quantity"
+                                                                   class="product-quantity-{{p.id}}">
+                                                            <input type="hidden" class="product-pid-{{p.id}}"
+                                                                   value="{{p.pid}}">
+                                                            <input type="hidden" class="product-image-{{p.id}}"
+                                                                   value="{{p.image.url}}">
+                                                            <input type="hidden" class="product-id-{{p.id}}"
+                                                                   value="{{ p.id }}">
+                                                            <input type="hidden" class="product-title-{{p.id}}"
+                                                                   value="{{ p.title }}">
+
+                                                            <div class="d-flex">
+                                                                <button class="add add-to-cart-btn b-none"
+                                                                        style="border: none;"
+                                                                        id="add-to-cart-btn" data-index="{{ p.id }}"><i
+                                                                        class="mr-5 fi-rs-shopping-cart"></i>Add
+                                                                </button>
+                                                                <button class="add add-to-wishlist"
+                                                                        style="border: none; background: none;"
+                                                                        data-product-item="{{ p.id }}"><i
+                                                                        class="fi-rs-heart"
+                                                                        style="fill: aqua;"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        <!--end product card-->
+                                    </div>
+                                </div>
+                                <!--End product-grid-->
+                                <div class="mt-20 mb-20 pagination-area d-flex justify-content-center">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-start">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#"><i
+                                                        class="fi-rs-arrow-small-right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!--En tab one-->
+                        </div>
+                    </div>
+                    <!--End tab-content-->
+                </div>
+            </section>
+            <!--End Products Tabs-->
+
+            <!--Best Sales-->
+            {% for c in categories %}
+            <section class="pb-5 section-padding">
+                <div class="container">
+                    <div class="section-title style-2 wow animate__animated animate__fadeIn">
+                        <h3>{{ c.title }}</h3>
+                        <ul class="nav nav-tabs links" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a href="{% url 'core:category-product-list' c.cid %}" class="nav-link active">
+                                    সকল {{ c.title }} দেখুন
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--End nav-tabs-->
+
+                    <div class="row">
+                        <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
+                            <div>
+
+                                <a href="{% url 'core:category-product-list' c.cid %}"><img class="rounded-3 "
+                                                                                            src="{{ c.image.url }}"
+                                                                                            alt=""/></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12 wow animate__animated animate__fadeIn" data-wow-delay=".4s">
+                            <div class="tab-content" id="myTabContent-1">
+
+                                <div class="tab-pane fade show active" id="tab-one-1" role="tabpanel"
+                                     aria-labelledby="tab-one-1">
+                                    <div class="carausel-4-columns-cover arrow-center position-relative">
+                                        <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow"
+                                             id="carausel-4-columns-arrows"></div>
+                                        <div class="d-flex carausel-4-columns carausel-arrow-center">
+
+                                            {% for p in products %}
+                                            <div class="col-lg-1-4 col-md-3 col-12 col-sm-6">
+                                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
+                                                     data-wow-delay=".1s">
+                                                    <div class="product-img-action-wrap ">
+                                                        <div class="product-img product-img-zoom">
+                                                            <a href="{% url 'core:product-detail' p.pid %}">
+                                                                <img class="default-img" src="{{ p.image.url }}"
+                                                                     alt=""/>
+                                                                <img class="hover-img" src="{{ p.image.url }}" alt=""/>
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-action-1">
+                                                            <a aria-label="Quick view" class="action-btn"
+                                                               href="{% url 'core:product-detail' p.pid %}"><i
+                                                                    class="fi-rs-eye"></i></a>
+                                                            <a aria-label="Add To Wishlist"
+                                                               class="action-btn small hover-up"
+                                                               href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Compare" class="action-btn small hover-up"
+                                                               href="shop-compare.html"><i
+                                                                    class="fi-rs-shuffle"></i></a>
+                                                        </div>
+                                                        <div class="product-badges product-badges-position product-badges-mrg">
+                                                            <span class="hot">{{ p.get_percentage | floatformat:0 }}% Off</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content-wrap">
+                                                        <div class="product-category">
+                                                            <a href="{% url 'core:category-product-list' p.category.cid %}">{{ p.category.title }} </a>
+                                                        </div>
+                                                        <h2><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }} </a>
+                                                        </h2>
+                                                        <div class="product-rate d-inline-block">
+                                                            <div class="product-rating" style="width: 80%"></div>
+                                                        </div>
+                                                        <div>
+                                                    <span class="font-small text-muted">প্রকানী: <a
+                                                            href="{% url 'core:vendor-detail' p.vendor.vid %}">{{ p.vendor.title }} </a></span>
+                                                        </div>
+                                                        <div class="mt-2 product-price">
+                                                            <span>৳ {{p.price}} </span>
+                                                            <span class="old-price">৳ {{ p.old_price }}</span>
+                                                        </div>
+                                                        <div class="product-card-bottom">
+                                                            <div class="add-cart">
+                                                                <input type="hidden" value="1" id="product-quantity-1"
+                                                                       class="product-quantity-{{p.id}}">
+                                                                <input type="hidden" class="product-pid-{{p.id}}"
+                                                                       value="{{p.pid}}">
+                                                                <input type="hidden" class="product-image-{{p.id}}"
+                                                                       value="{{p.image.url}}">
+                                                                <input type="hidden" class="product-id-{{p.id}}"
+                                                                       value="{{ p.id }}">
+                                                                <input type="hidden" class="product-title-{{p.id}}"
+                                                                       value="{{ p.title }}">
+
+                                                                <div class="d-flex">
+                                                                    <button class="add add-to-cart-btn b-none"
+                                                                            style="border: none;"
+                                                                            id="add-to-cart-btn-1"
+                                                                            data-index="{{ p.id }}"><i
+                                                                            class="mr-5 fi-rs-shopping-cart"></i>Add
+                                                                    </button>
+                                                                    <button class="add add-to-wishlist"
+                                                                            style="border: none; background: none;"
+                                                                            data-product-item="{{ p.id }}"><i
+                                                                            class="fi-rs-heart"
+                                                                            style="fill: aqua;"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a href="{% url 'core:product-detail' p.pid %}"
+                                                           class="mt-3 btn w-100 hover-up"><i
+                                                                class="mr-5 fi-rs-shopping-cart"></i>এখনই কিনুন</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <!--End product Wrap-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End tab-pane-->
+                            </div>
+                            <!--End tab-content-->
+                        </div>
+                        <!--End Col-lg-9-->
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+            <!--End Best Sales-->-
+
+        </div>
+    </div>
+    <section class="popular-categories section-padding">
+        <div class="container">
+            <div class="section-title">
+                <div class="title">
+                    <h3>প্রকাশনী</h3>
+                    <a class="show-all" href="{% url 'core:vendor-list' %}">
+                        সকল প্রকাশনী
+                        <i class="fi-rs-angle-right"></i>
+                    </a>
+                </div>
+                <div class="slider-arrow slider-arrow-2 flex-right carausel-8-columns-arrow"
+                     id="carausel-8-columns-arrows"></div>
+            </div>
+            <div class="carausel-8-columns-cover position-relative">
+                <div class="carausel-8-columns" id="carausel-8-columns">
+                    {% for v in vendors %}
+                    <div class="m-2">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="{% url 'core:vendor-detail' v.vid %}"><img src="{{v.image.url}}" alt=""/></a>
+                        </figure>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End category slider-->
+</main>
+{% endblock content %}
